@@ -61,14 +61,14 @@ public class Main {
         ArrayList<String> combosTypes = new ArrayList<>();
         //реализуйте ввод типов блюд
         while (!nextItem.isEmpty()) {
-                if (dc.dishesMenu.containsKey(nextItem)) {
-                    combosTypes.add(nextItem);
-                    nextItem = scanner.nextLine();
+            if (dc.dishesMenu.containsKey(nextItem)) {
+                combosTypes.add(nextItem);
+                nextItem = scanner.nextLine();
 
-                } else {
-                    System.out.println("Данный тип блюд отсутствует в меню. Укажите другое блюдо!");
-                    break;
-                }
+            } else {
+                System.out.println("Данный тип блюд отсутствует в меню. Укажите другое блюдо!");
+                break;
+            }
         }
 
         // сгенерируйте комбинации блюд и выведите на экран
@@ -77,7 +77,6 @@ public class Main {
         } else {
             System.out.println("Список меню пуст. Создание комбо невозможно!");
         }
-
 
     }
 }
