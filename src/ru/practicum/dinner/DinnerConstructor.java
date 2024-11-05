@@ -13,18 +13,8 @@ public class DinnerConstructor {
     }
 
     void saveDishes(String dishType, String dishName) {
-        if(dishesMenu.containsKey(dishType)) {
-            ArrayList<String> dishes = dishesMenu.get(dishType);
-            dishes.add(dishName);
-            dishesMenu.put(dishType, dishes);
-            System.out.println(dishName + " успешно добавлено в категорию блюд " + dishType);
-        } else {
-            ArrayList<String> dishes = new ArrayList<>();
-            dishes.add(dishName);
-            dishesMenu.put(dishType, dishes);
-            System.out.println(dishName + " успешно добавлено в категорию блюд " + dishType);
-        }
-
+        dishesMenu.computeIfAbsent(dishType, k -> new ArrayList<>()).add(dishName);
+        System.out.println(dishName + " успешно добавлено в категорию блюд " + dishType);
     }
 
     void printGeneratedCombos(Integer numberOfCombos, ArrayList<String> dishesTypes) {
@@ -32,8 +22,9 @@ public class DinnerConstructor {
         for (int i = 0; i < numberOfCombos; i++) {
             ArrayList<String> combo = new ArrayList<>();
             for (String dishesType : dishesTypes) {
-                int value = random.nextInt(dishesMenu.get(dishesType).size());
-                combo.add(dishesMenu.get(dishesType).get(value));
+                ArrayList<String> dishes = dishesMenu.get(dishesType);
+                int value = random.nextInt(dishes.size());
+                combo.add(dishes.get(value));
             }
 
             combos.add(i, combo);
@@ -43,6 +34,10 @@ public class DinnerConstructor {
             System.out.println("Комбо " + (i + 1));
             System.out.println(combos.get(i));
         }
+    }
+
+    Boolean checkType(String dishType) {
+        return dishesMenu.containsKey(dishType);
     }
 
 }

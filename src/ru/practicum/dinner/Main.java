@@ -8,8 +8,6 @@ public class Main {
     static DinnerConstructor dc;
     static Scanner scanner;
 
-    DinnerConstructor dinnerConstructor;
-
     public static void main(String[] args) {
         dc = new DinnerConstructor();
         scanner = new Scanner(System.in);
@@ -52,8 +50,14 @@ public class Main {
         System.out.println("Начинаем конструировать обед...");
 
         System.out.println("Введите количество наборов, которые нужно сгенерировать:");
-        int numberOfCombos = scanner.nextInt();
-        scanner.nextLine();
+        int numberOfCombos;
+        if (scanner.hasNextInt()) {
+            numberOfCombos = scanner.nextInt();
+            scanner.nextLine();
+        } else {
+            System.out.println("Для количества наборов, введено не число. Пожалуйста введите число!");
+            return;
+        }
 
         System.out.println("Вводите типы блюда, разделяя символом переноса строки (enter). Для завершения ввода введите пустую строку");
         String nextItem = scanner.nextLine();
@@ -61,7 +65,7 @@ public class Main {
         ArrayList<String> combosTypes = new ArrayList<>();
         //реализуйте ввод типов блюд
         while (!nextItem.isEmpty()) {
-            if (dc.dishesMenu.containsKey(nextItem)) {
+            if (dc.checkType(nextItem)) {
                 combosTypes.add(nextItem);
                 nextItem = scanner.nextLine();
 
